@@ -1,2 +1,2 @@
-module RequestHelper
+module RequestsHelper
 end
