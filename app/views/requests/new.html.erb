@@ -1,3 +1,25 @@
 <div>
-  New
+  <%= form_for @request do |f| %>
+    <div>
+      <%= f.label :request_type %>
+      <%= f.collection_radio_buttons(:request_type, Request.request_type.values, :value, :text) do |b|
+        b.label do %>
+          <%= b.radio_button %>
+          <%= b.text %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :request_type %>
+      <%= f.collection_radio_buttons(:algorithm_type, Request.algorithm_type.values, :value, :text) do |b|
+        b.label do %>
+          <%= b.radio_button %>
+          <%= b.text %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= f.submit "Create" %>
+  <% end %>
 </div>

@@ -8,6 +8,12 @@ class RequestsController < ApplicationController
   end
 
   def create
+    @request = Request.create(request_params)
+  end
 
+  private
+
+  def request_params
+    params.require(:request).permit(:request_type, :algorithm_type)
   end
 end
