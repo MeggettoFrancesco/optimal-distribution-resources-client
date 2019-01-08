@@ -15,6 +15,7 @@ gem 'wicked'
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'capybara', '~> 2.13'
+  gem 'factory_bot_rails'
   gem 'rubocop', '~> 0.62.0'
   gem 'selenium-webdriver'
   gem 'simplecov'
