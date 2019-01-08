@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
+gem 'activeadmin'
 gem 'coffee-rails', '~> 4.2'
+gem 'devise'
 gem 'enumerize'
 gem 'jbuilder', '~> 2.5'
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
