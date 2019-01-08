@@ -17,11 +17,17 @@
 /storage/*
 !/storage/.keep
 
-/node_modules
 /yarn-error.log
 
-/public/assets
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore SimpleCov's coverage folder
+/coverage
+
+# Folders to ignore
+/public/uploads
+/public/assets
+/node_modules

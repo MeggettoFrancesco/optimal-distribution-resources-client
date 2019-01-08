@@ -16,7 +16,7 @@ README.md
 # Ignore uploads
 /public/uploads
 /public/assets
+/node_modules
 
-.env
 /yarn-error.log
 .byebug_history
