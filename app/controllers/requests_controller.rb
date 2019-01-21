@@ -9,6 +9,7 @@ class RequestsController < ApplicationController
 
   def create
     @request = Request.create(request_params)
+    render :new unless @request.save
   end
 
   private
