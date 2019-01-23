@@ -11,8 +11,6 @@ class RequestsController < ApplicationController
     @request = Request.create(request_params)
 
     render :new unless @request.save
-
-    @request.fetch_api_solution
   end
 
   private

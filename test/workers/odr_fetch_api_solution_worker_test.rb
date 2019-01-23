@@ -1,5 +1,6 @@
 require 'test_helper'
-class OdrGetApiSolutionWorkerTest < MiniTest::Unit::TestCase
+
+class OdrFetchApiSolutionWorkerTest < MiniTest::Unit::TestCase
   def test_example
     skip "add some examples to (or delete) #{__FILE__}"
   end

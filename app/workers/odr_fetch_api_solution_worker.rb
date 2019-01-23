@@ -1,17 +1,20 @@
-class OdrGetApiSolutionWorker
+class OdrFetchApiSolutionWorker
   include Sidekiq::Worker
 
   def perform(request_id, api_request_uuid)
     response = OdrApiService.new.retrieve_api_request(api_request_uuid)
-    Request.update(request_id, solution: analyze_response(response))
+    analyze_response(response, request_id)
   end
 
-  def analyze_response(response)
+  private
+
+  def analyze_response(response, request_id)
     case response['code']
     when 200
-      response['result']
+      Request.update(request_id, solution: response['result'])
     else
       p 'SEND MESSAGE TO ROLLBAR'
+      p response
       # Send message to Rollbar
     end
   end
