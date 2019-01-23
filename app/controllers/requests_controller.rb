@@ -16,6 +16,8 @@ class RequestsController < ApplicationController
   private
 
   def request_params
-    params.require(:request).permit(:request_type, :algorithm_type)
+    params.require(:request)
+          .permit(:request_type, :algorithm_type, :odr_api_path_length,
+                  :odr_api_number_resources, :odr_api_cycles)
   end
 end

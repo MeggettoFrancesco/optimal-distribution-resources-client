@@ -8,9 +8,9 @@ class OdrCreateApiRequestWorker
     response = odr_api_service.create_api_request(
       request_type: my_request.algorithm_type,
       input_matrix: '[[0, 1, 0, 0], [1, 0, 1, 1], [0, 1, 0, 1], [0, 1, 1, 0]]',
-      path_length: 3,
-      number_resources: 1,
-      cycles: false
+      path_length: my_request.odr_api_path_length,
+      number_resources: my_request.odr_api_number_resources,
+      cycles: my_request.odr_api_cycles
     )
     analyze_response(response, request_id)
   end

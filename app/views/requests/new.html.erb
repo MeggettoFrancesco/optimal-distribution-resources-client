@@ -25,6 +25,21 @@
     </div>
 
     <div>
+      <%= f.label :odr_api_path_length %>
+      <%= f.number_field :odr_api_path_length, value: 3, in: 2..10 %>
+    </div>
+
+    <div>
+      <%= f.label :odr_api_number_resources %>
+      <%= f.number_field :odr_api_number_resources, value: 1, in: 1..10 %>
+    </div>
+
+    <div>
+      <%= f.label :odr_api_cycles %>
+      <%= f.check_box :odr_api_cycles %>
+    </div>
+
+    <div>
       <button type="button" value="1">0</button>
       <button type="button" value="2">0</button>
       <button type="button" value="3">0</button>
