@@ -8,4 +8,5 @@
 return unless Rails.env.development?
 require 'factory_bot_rails'
 
+puts 'Creating admin'
 FactoryBot.create(:admin_user, email: 'admin@example.com')

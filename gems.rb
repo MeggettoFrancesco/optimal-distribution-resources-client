@@ -4,6 +4,7 @@ gem 'activeadmin'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'enumerize'
+gem 'faraday', '~> 0.9.2'
 gem 'jbuilder', '~> 2.5'
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 gem 'puma', '~> 3.11'
@@ -12,7 +13,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'sidekiq'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
-gem 'wicked'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

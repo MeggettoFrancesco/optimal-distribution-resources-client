@@ -1,6 +1,10 @@
 <div>
   <%= form_for @request do |f| %>
     <div>
+        <h1>Form Validation</h1>
+    </div>
+
+    <div>
       <%= f.label :request_type %>
       <%= f.collection_radio_buttons(:request_type, Request.request_type.values, :value, :text) do |b|
         b.label do %>
@@ -11,7 +15,7 @@
     </div>
 
     <div>
-      <%= f.label :request_type %>
+      <%= f.label :algorithm_type %>
       <%= f.collection_radio_buttons(:algorithm_type, Request.algorithm_type.values, :value, :text) do |b|
         b.label do %>
           <%= b.radio_button %>
@@ -20,6 +24,34 @@
       <% end %>
     </div>
 
-    <%= f.submit "Create" %>
+    <div>
+      <button type="button" value="1">0</button>
+      <button type="button" value="2">0</button>
+      <button type="button" value="3">0</button>
+      <button type="button" value="4">0</button>
+    </div>
+
+    <div>
+      <button type="button" value="5">0</button>
+      <button type="button" value="6">0</button>
+      <button type="button" value="7">0</button>
+      <button type="button" value="8">0</button>
+    </div>
+    <div>
+      <button type="button" value="9">0</button>
+      <button type="button" value="10">0</button>
+      <button type="button" value="11">0</button>
+      <button type="button" value="12">0</button>
+    </div>
+    <div>
+      <button type="button" value="13">0</button>
+      <button type="button" value="14">0</button>
+      <button type="button" value="15">0</button>
+      <button type="button" value="16">0</button>
+    </div>
+
+    <div>
+      <%= f.submit "Submit" %>
+    </div>
   <% end %>
 </div>
