@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2019_01_08_152106) do
   create_table "requests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "request_type"
     t.string "algorithm_type"
-    t.string "odr_api_matrix"
+    t.text "odr_api_matrix", limit: 4294967295
     t.integer "odr_api_path_length"
     t.string "odr_api_number_resources"
     t.boolean "odr_api_cycles"
