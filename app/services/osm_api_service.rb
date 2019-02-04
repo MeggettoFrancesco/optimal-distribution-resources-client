@@ -1,5 +1,10 @@
+require 'matrix'
+
 class OsmApiService
   BASE_URL = 'https://api.openstreetmap.org/api/0.6/'.freeze
+
+  attr_reader :nodes
+  attr_reader :edges
 
   def initialize
     @client = client
@@ -11,11 +16,12 @@ class OsmApiService
     response = @client.get(url)
 
     parser = Nokogiri::XML.parse(response.body)
-    edges = compute_edges(parser)
-    nodes = compute_nodes(parser, edges)
+    @edges = compute_edges(parser)
+    @nodes = compute_nodes(parser)
 
-    # nodes.map { |c| puts "#{c[:lat]}, #{c[:lon]}" }.count
-    byebug
+    resulting_matrix = create_matrix
+
+    { resulting_matrix: resulting_matrix, nodes: @nodes }
   end
 
   private
@@ -30,37 +36,48 @@ class OsmApiService
   end
 
   def compute_edges(parser)
-    counter = {}
-
+    edges = []
     parser.css(:way).each do |way|
-      next unless good_tags?(way)
+      next unless wanted_tags?(way)
 
-      way.css(:nd).each do |nd|
-        counter[nd[:ref]] ||= 0
-        counter[nd[:ref]] += 1
-      end
+      nds = way.css(:nd)
+      nds.each_cons(2) { |curr, nekst| edges << [curr[:ref], nekst[:ref]] }
     end
 
-    # Find edges that are shared with 1+ nodes
-    counter.select { |_, v| v > 1 }.keys
+    edges
   end
 
-  def compute_nodes(parser, edges)
+  def compute_nodes(parser)
+    flattened_edges = @edges.flatten.uniq
     nodes = []
     parser.css(:node)
-          .select { |node| edges.include?(node[:id]) }
+          .select { |node| flattened_edges.include?(node[:id]) }
           .each do |node|
-      nodes << { lat: node[:lat], lon: node[:lon] }
+      nodes << { id: node[:id], lat: node[:lat], lon: node[:lon] }
     end
 
     nodes
   end
 
-  def good_tags?(way)
+  def wanted_tags?(way)
+    good_tags = %w[motorway trunk primary secondary tertialy residential]
     way.css(:tag).each do |tags|
-      return true if tags.attributes['k'].value == 'highway'
+      return true if tags.attributes['k'].value == 'highway' &&
+                     good_tags.include?(tags.attributes['v'].value)
     end
 
     false
+  end
+
+  def create_matrix
+    Matrix.build(nodes.count) do |row, col|
+      if row == col
+        0
+      else
+        row_n_id = @nodes[row][:id]
+        col_n_id = @nodes[col][:id]
+        @edges.any? { |e| e == [row_n_id, col_n_id] } ? 1 : 0
+      end
+    end
   end
 end
