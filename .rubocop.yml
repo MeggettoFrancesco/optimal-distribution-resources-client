@@ -79,3 +79,7 @@ Style/ClassAndModuleChildren:
 # `assert Request.request_type.values.include?(@request.request_type)`
 Performance/InefficientHashSearch:
     Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - "app/admin/**/*.rb"
