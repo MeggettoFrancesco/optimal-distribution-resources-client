@@ -10,7 +10,6 @@ class OsmApiService
     @client = client
   end
 
-  # OsmApiService.new.graph_adjacency_matrix(-0.153825,51.509190,-0.148707,51.513664)
   def graph_adjacency_matrix(min_lon, min_lat, max_lon, max_lat)
     url = "#{BASE_URL}/map?bbox=#{min_lon},#{min_lat},#{max_lon},#{max_lat}"
     response = @client.get(url)
@@ -70,13 +69,13 @@ class OsmApiService
   end
 
   def create_matrix
-    Matrix.build(nodes.count) do |row, col|
-      if row == col
-        0
-      else
-        row_n_id = @nodes[row][:id]
-        col_n_id = @nodes[col][:id]
-        @edges.any? { |e| e == [row_n_id, col_n_id] } ? 1 : 0
+    Array.new(@nodes.count) do |row|
+      Array.new(@nodes.count) do |col|
+        if row == col
+          0
+        else
+          @edges.any? { |e| e == [@nodes[row][:id], @nodes[col][:id]] } ? 1 : 0
+        end
       end
     end
   end

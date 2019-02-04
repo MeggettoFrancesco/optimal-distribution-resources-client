@@ -3,15 +3,16 @@ class OdrCreateApiRequestWorker
 
   def perform(request_id)
     my_request = Request.find_by_id(request_id)
-
     odr_api_service = OdrApiService.new
+
     response = odr_api_service.create_api_request(
       request_type: my_request.algorithm_type,
-      input_matrix: '[[0, 1, 0, 0], [1, 0, 1, 1], [0, 1, 0, 1], [0, 1, 1, 0]]',
+      input_matrix: my_request.odr_api_matrix,
       path_length: my_request.odr_api_path_length,
       number_resources: my_request.odr_api_number_resources,
       cycles: my_request.odr_api_cycles
     )
+
     analyze_response(response, request_id)
   end
 
