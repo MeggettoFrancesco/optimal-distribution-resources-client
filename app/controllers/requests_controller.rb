@@ -10,7 +10,15 @@ class RequestsController < ApplicationController
   def create
     @request = Request.create(request_params)
 
-    render :new unless @request.save
+    if @request.save
+      redirect_to @request
+    else
+      render :new
+    end
+  end
+
+  def show
+    @request = Request.find(params[:id])
   end
 
   private

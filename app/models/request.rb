@@ -15,17 +15,18 @@ class Request < ApplicationRecord
             presence: true, numericality: { greater_than_or_equal_to: 1 }
   validates :odr_api_cycles, inclusion: { in: [true, false] }
 
-  after_commit :retrieve_osm_matrix, if: :open_street_maps?, on: :create
-  after_commit :create_api_request
+  after_commit :create_api_request, :retrieve_osm_matrix, on: :create
 
   private
 
-  def open_street_maps?
-    request_type == :open_street_maps
-  end
-
   def retrieve_osm_matrix
-    OsmGetGraphWorker.perform_async(id, -0.153825, 51.509190, -0.148707, 51.513664)
+    return unless request_type == :open_street_maps
+
+    min_lon = -0.153825
+    min_lat = 51.509190
+    max_lon = -0.148707
+    max_lat = 51.513664
+    OsmGetGraphWorker.perform_async(id, min_lon, min_lat, max_lon, max_lat)
   end
 
   def create_api_request

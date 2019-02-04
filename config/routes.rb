@@ -7,6 +7,6 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  resources :requests, only: %i[index new create]
+  resources :requests, only: %i[index new create show]
   root 'requests#index'
 end
