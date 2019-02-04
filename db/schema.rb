@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2019_01_08_152106) do
     t.string "odr_api_number_resources"
     t.boolean "odr_api_cycles"
     t.string "odr_api_uuid"
-    t.string "solution"
+    t.text "solution", limit: 4294967295
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

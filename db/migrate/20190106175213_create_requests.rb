@@ -10,7 +10,7 @@ class CreateRequests < ActiveRecord::Migration[5.2]
       t.boolean :odr_api_cycles
       t.string :odr_api_uuid
 
-      t.string :solution
+      t.longtext :solution
 
       t.timestamps
     end
