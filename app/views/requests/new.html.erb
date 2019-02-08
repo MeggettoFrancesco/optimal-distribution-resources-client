@@ -41,29 +41,12 @@
 
     <div id="input_matrix_buttons">
       <div>
-        <button type="button" value="1">0</button>
-        <button type="button" value="2">0</button>
-        <button type="button" value="3">0</button>
-        <button type="button" value="4">0</button>
+        <%= f.label :matrix_size %>
+        <%= f.number_field :matrix_size, value: 4, in: 4..15 %>
       </div>
 
-      <div>
-        <button type="button" value="5">0</button>
-        <button type="button" value="6">0</button>
-        <button type="button" value="7">0</button>
-        <button type="button" value="8">0</button>
-      </div>
-      <div>
-        <button type="button" value="9">0</button>
-        <button type="button" value="10">0</button>
-        <button type="button" value="11">0</button>
-        <button type="button" value="12">0</button>
-      </div>
-      <div>
-        <button type="button" value="13">0</button>
-        <button type="button" value="14">0</button>
-        <button type="button" value="15">0</button>
-        <button type="button" value="16">0</button>
+      <div id='input_table'>
+        
       </div>
     </div>
 
