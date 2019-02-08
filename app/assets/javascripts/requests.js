@@ -20,8 +20,11 @@ $(document).on('change', '#request_matrix_size', function() {
 
 // Create input table on load with default value
 $(function () {
-  value = $('#request_matrix_size')[0].value;
-  dynamicTableCreation(value);
+  var request_matrix_size = $('#request_matrix_size');
+  if(request_matrix_size.length) {
+    var value = request_matrix_size[0].value;
+    dynamicTableCreation(value);
+  }
 });
 
 
