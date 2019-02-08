@@ -45,8 +45,12 @@
         <%= f.number_field :matrix_size, value: 4, in: 4..15 %>
       </div>
 
+      <div>
+        <%= f.label :is_directed_graph %>
+        <%= check_box_tag(:is_directed_graph) %>
+      </div>
+
       <div id='input_table'>
-        
       </div>
     </div>
 

@@ -27,23 +27,39 @@ $(function () {
 
 // Table buttons click
 $(document).on('click', '.input_matrix_button', function() {
-  console.log('here');
   var currentButton = $(this);
-  var size = parseInt($('#request_matrix_size')[0].value) + 1;
+  var size = parseInt($('#request_matrix_size')[0].value);
 
   // avoid toggling in diagonal
-  if (this.id == 0 || this.id % size == 0) {
+  if (this.id == 0 || this.id % (size + 1) == 0) {
     return;
   }
 
-  if(currentButton.text() == 0) {
-    currentButton.text(1);
-    this.value = 1;
-  } else {
-    currentButton.text(0);
-    this.value = 0;
+  // toggle text and value
+  toggleTextValueOfButton(currentButton);
+  // if 'is_directed_graph' is set, update mirror value
+  if ($('#is_directed_graph')[0].checked) {
+    var x = parseInt(this.id / size, size);
+    var y = this.id - (size * x);
+    var mirrorButton = $('button#' + (y * size + x));
+    copyStateOfSourceButton(currentButton, mirrorButton)
   }
 });
+
+function toggleTextValueOfButton(btn) {
+  if(btn.text() == 0) {
+    btn.text(1);
+    this.value = 1;
+  } else {
+    btn.text(0);
+    this.value = 0;
+  }
+}
+
+function copyStateOfSourceButton(source, destination) {
+  destination.text(source.text());
+  destination.value = source.value;
+}
 
 function dynamicTableCreation(number) {
   $('#input_table').html(generateTable(number));
