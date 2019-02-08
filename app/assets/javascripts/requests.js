@@ -30,7 +30,7 @@ $(function () {
 
 // Table buttons click
 $(document).on('click', '.input_matrix_button', function() {
-  var currentButton = $(this);
+  var currentInput = $(this);
   var size = parseInt($('#request_matrix_size')[0].value);
 
   // avoid toggling in diagonal
@@ -39,29 +39,26 @@ $(document).on('click', '.input_matrix_button', function() {
   }
 
   // toggle text and value
-  toggleTextValueOfButton(currentButton);
+  toggleTextValueOfButton(currentInput);
   // if 'is_directed_graph' is set, update mirror value
   if ($('#is_directed_graph')[0].checked) {
     var x = parseInt(this.id / size, size);
     var y = this.id - (size * x);
-    var mirrorButton = $('button#' + (y * size + x));
-    copyStateOfSourceButton(currentButton, mirrorButton)
+    var mirrorInput = $('input#' + (y * size + x));
+    copyStateOfSourceInput(currentInput, mirrorInput)
   }
 });
 
-function toggleTextValueOfButton(btn) {
-  if(btn.text() == 0) {
-    btn.text(1);
-    this.value = 1;
+function toggleTextValueOfButton(input) {
+  if(input.val() == 0) {
+    input.val(1);
   } else {
-    btn.text(0);
-    this.value = 0;
+    input.val(0);
   }
 }
 
-function copyStateOfSourceButton(source, destination) {
-  destination.text(source.text());
-  destination.value = source.value;
+function copyStateOfSourceInput(source, destination) {
+  destination.val(source.val());
 }
 
 function dynamicTableCreation(number) {
@@ -76,7 +73,7 @@ function generateTable(number) {
     table += "<tr>";
     for (var j = 0; j < number; j++) {
       var new_id = (i * number) + j;
-      new_button = "<button type='button' class='input_matrix_button' id=" + new_id + " value='0'>0</button>"
+      new_button = "<input type='button' name='request[odr_api_matrix][]' class='input_matrix_button' id=" + new_id + " value='0'>"
       table += "<td>" + new_button + "</td>";
     }
     table += "</tr>";

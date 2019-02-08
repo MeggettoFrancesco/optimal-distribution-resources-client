@@ -1,18 +1,17 @@
 // Place all the styles related to the Request controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-#table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  padding-top: 0;
-}
-
-tbody tr > td{
-  width: 5%;
-}
-
 
 #map {
   height: 360px;
   display: none;
+}
+
+th, td {
+  display: contents;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
 }
