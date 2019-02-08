@@ -6,9 +6,9 @@
 
     <div>
       <%= f.label :request_type %>
-      <%= f.collection_radio_buttons(:request_type, Request.request_type.values, :value, :text) do |b|
+      <%= f.collection_radio_buttons(:request_type, Request.request_type.values, :value, :text, { checked: Request.request_type.values.first }) do |b|
         b.label do %>
-          <%= b.radio_button %>
+          <%= b.radio_button(onchange: "toggle_input_type('#{b.value}');") %>
           <%= b.text %>
         <% end %>
       <% end %>
@@ -16,7 +16,7 @@
 
     <div>
       <%= f.label :algorithm_type %>
-      <%= f.collection_radio_buttons(:algorithm_type, Request.algorithm_type.values, :value, :text) do |b|
+      <%= f.collection_radio_buttons(:algorithm_type, Request.algorithm_type.values, :value, :text, { checked: Request.algorithm_type.values.first }) do |b|
         b.label do %>
           <%= b.radio_button %>
           <%= b.text %>
@@ -39,33 +39,41 @@
       <%= f.check_box :odr_api_cycles %>
     </div>
 
-    <div>
-      <button type="button" value="1">0</button>
-      <button type="button" value="2">0</button>
-      <button type="button" value="3">0</button>
-      <button type="button" value="4">0</button>
+    <div id="input_matrix_buttons">
+      <div>
+        <button type="button" value="1">0</button>
+        <button type="button" value="2">0</button>
+        <button type="button" value="3">0</button>
+        <button type="button" value="4">0</button>
+      </div>
+
+      <div>
+        <button type="button" value="5">0</button>
+        <button type="button" value="6">0</button>
+        <button type="button" value="7">0</button>
+        <button type="button" value="8">0</button>
+      </div>
+      <div>
+        <button type="button" value="9">0</button>
+        <button type="button" value="10">0</button>
+        <button type="button" value="11">0</button>
+        <button type="button" value="12">0</button>
+      </div>
+      <div>
+        <button type="button" value="13">0</button>
+        <button type="button" value="14">0</button>
+        <button type="button" value="15">0</button>
+        <button type="button" value="16">0</button>
+      </div>
     </div>
 
-    <div>
-      <button type="button" value="5">0</button>
-      <button type="button" value="6">0</button>
-      <button type="button" value="7">0</button>
-      <button type="button" value="8">0</button>
+    <div id="map">
+      <%= map(:center => {
+              latlng: [51.52238797921441, -0.08366235665359283],
+              zoom: 18
+            })
+      %>
     </div>
-    <div>
-      <button type="button" value="9">0</button>
-      <button type="button" value="10">0</button>
-      <button type="button" value="11">0</button>
-      <button type="button" value="12">0</button>
-    </div>
-    <div>
-      <button type="button" value="13">0</button>
-      <button type="button" value="14">0</button>
-      <button type="button" value="15">0</button>
-      <button type="button" value="16">0</button>
-    </div>
-
-    <div id="map" style="height: 360px"></div>
 
     <div>
       <%= f.submit "Submit" %>
