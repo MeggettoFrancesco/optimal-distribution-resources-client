@@ -42,10 +42,11 @@ $(document).on('click', '.input_matrix_button', function() {
   toggleTextValueOfButton(currentInput);
   // if 'is_directed_graph' is set, update mirror value
   if ($('#is_directed_graph')[0].checked) {
-    var x = parseInt(this.id / size, size);
-    var y = this.id - (size * x);
-    var mirrorInput = $('input#' + (y * size + x));
-    copyStateOfSourceInput(currentInput, mirrorInput)
+    var after_regex = this.id.match(/\[([^\]]+)\]/g);
+    var x = after_regex[0].replace(/[\[\]']+/g,'');
+    var y = after_regex[1].replace(/[\[\]']+/g,'');
+    var mirrorInput = $('input#request_odr_api_matrix\\[' + y + '\\]\\[' + x + '\\]');
+    copyStateOfSourceInput(currentInput, mirrorInput);
   }
 });
 
@@ -72,12 +73,11 @@ function generateTable(number) {
   for (var i = 0; i < number; i++) {
     table += "<tr>";
     for (var j = 0; j < number; j++) {
-      var new_id = (i * number) + j;
-      new_button = "<input type='button' name='request[odr_api_matrix][]' class='input_matrix_button' id=" + new_id + " value='0'>"
-      table += "<td>" + new_button + "</td>";
+      new_button = "<input type='text' value='0' name='request[odr_api_matrix[" + i + "][" + j + "]]' id='request_odr_api_matrix[" + i + "][" + j + "]' readonly='readonly' class='button input_matrix_button'>";
+      table += "<td style='display: inline-block' >" + new_button + "</td>";
     }
     table += "</tr>";
   }
 
-  return table + end_table
+  return table + end_table;
 }
