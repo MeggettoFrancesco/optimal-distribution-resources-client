@@ -4,13 +4,29 @@
 function toggle_input_type(input_type) {
   if (input_type == "input_matrix") {
     $("#input_matrix_buttons").show();
-    $("#map").hide();
+    $("#input_map").hide();
   }
   else {
     $("#input_matrix_buttons").hide();
-    // TODO : need to call map.invalidateSize();
-    $("#map").show();
+    $("#input_map").show();
+    map.invalidateSize();
   }
+}
+
+// Update min lat, max lat, min lon, max lon of the view on map click
+// TODO : add on zoom too!!
+$(document).on('click', '#map', function() {
+  var coordinates = map.getBounds();
+  $('#request_min_latitude').val(coordinates['_southWest']['lat']);
+  $('#request_max_latitude').val(coordinates['_northEast']['lat']);
+  $('#request_min_longitude').val(coordinates['_southWest']['lng']);
+  $('#request_max_longitude').val(coordinates['_southWest']['lng']);
+});
+
+function centerMap(arrayOfLatLngs) {
+  console.log("HERE");
+  var bounds = new L.LatLngBounds(arrayOfLatLngs);
+  map.fitBounds(bounds);
 }
 
 // Create input table

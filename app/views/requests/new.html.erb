@@ -54,12 +54,34 @@
       </div>
     </div>
 
-    <div id="map">
-      <%= map(:center => {
-              latlng: [51.52238797921441, -0.08366235665359283],
-              zoom: 18
-            })
-      %>
+    <div id="input_map">
+      <div>
+        <%= f.label :min_latitude %>
+        <%= f.text_field :min_latitude, readonly: true %>
+      </div>
+
+      <div>
+        <%= f.label :max_latitude %>
+        <%= f.text_field :max_latitude, readonly: true %>
+      </div>
+
+      <div>
+        <%= f.label :min_longitude %>
+        <%= f.text_field :min_longitude, readonly: true %>
+      </div>
+
+      <div>
+        <%= f.label :max_longitude %>
+        <%= f.text_field :max_longitude, readonly: true %>
+      </div>
+
+      <div id="map">
+        <%= map(:center => {
+                latlng: [51.52238797921441, -0.08366235665359283],
+                zoom: 18
+              })
+        %>
+      </div>
     </div>
 
     <div>

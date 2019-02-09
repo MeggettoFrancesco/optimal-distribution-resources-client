@@ -2,9 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#input_map {
+  display: none;
+}
+
 #map {
   height: 360px;
-  display: none;
 }
 
 th, td {
@@ -27,7 +30,6 @@ table {
   border-radius: 50%;
   cursor: pointer;
 }
-
 
 .input_matrix_button {
   border-radius: 50%

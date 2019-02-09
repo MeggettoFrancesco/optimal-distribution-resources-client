@@ -12,11 +12,11 @@
       <p>Input Matrix: <%= @request.odr_api_matrix %></p>
     <% elsif @request.request_type == :open_street_maps %>
       <div id="map" style="height: 360px">
-        <%= ll = map(:center => {
-                  latlng: [51.52238797921441, -0.08366235665359283],
-                  zoom: 18
-                },
-                markers: @coordinates.map { |c| { latlng: [c.first, c.second] } }
+        <%= map(center: {
+                latlng: [51.52238797921441, -0.08366235665359283],
+                zoom: 18
+              },
+              markers: @coordinates.map { |c| { latlng: [c.first, c.second] } }
             )
         %>
       </div>
