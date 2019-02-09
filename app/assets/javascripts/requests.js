@@ -31,10 +31,10 @@ $(function () {
 // Table buttons click
 $(document).on('click', '.input_matrix_button', function() {
   var currentInput = $(this);
-  var size = parseInt($('#request_matrix_size')[0].value);
 
   // avoid toggling in diagonal
-  if (this.id == 0 || this.id % (size + 1) == 0) {
+  var point = extractXAndYFromId(this.id);
+  if (point['x'] == point['y']) {
     return;
   }
 
@@ -42,10 +42,7 @@ $(document).on('click', '.input_matrix_button', function() {
   toggleTextValueOfButton(currentInput);
   // if 'is_directed_graph' is set, update mirror value
   if ($('#is_directed_graph')[0].checked) {
-    var after_regex = this.id.match(/\[([^\]]+)\]/g);
-    var x = after_regex[0].replace(/[\[\]']+/g,'');
-    var y = after_regex[1].replace(/[\[\]']+/g,'');
-    var mirrorInput = $('input#request_odr_api_matrix\\[' + y + '\\]\\[' + x + '\\]');
+    var mirrorInput = $('input#request_odr_api_matrix\\[' + point['y'] + '\\]\\[' + point['x'] + '\\]');
     copyStateOfSourceInput(currentInput, mirrorInput);
   }
 });
@@ -80,4 +77,11 @@ function generateTable(number) {
   }
 
   return table + end_table;
+}
+
+function extractXAndYFromId(currId) {
+  var after_regex = currId.match(/\[([^\]]+)\]/g);
+  var x = after_regex[0].replace(/[\[\]']+/g,'');
+  var y = after_regex[1].replace(/[\[\]']+/g,'');
+  return { x: x, y: y };
 }

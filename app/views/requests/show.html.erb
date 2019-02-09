@@ -1,17 +1,25 @@
 <div>
   <h2>Solution is: <%= @request.solution %></h2>
 
-  <% if @request.request_type == :input_matrix %>
+  <div>
+    <h3>Summary</h3>
 
-  <% elsif @request.request_type == :open_street_maps %>
-    <div id="map" style="height: 360px">
-      <%= ll = map(:center => {
-                latlng: [51.52238797921441, -0.08366235665359283],
-                zoom: 18
-              },
-              markers: @coordinates.map { |c| { latlng: [c.first, c.second] } }
-          )
-      %>
-    </div>
-  <% end %>
+    <p>Path Length: <%= @request.odr_api_path_length %></p>
+    <p>Number of resources: <%= @request.odr_api_number_resources %></p>
+    <p>Cycles: <%= @request.odr_api_cycles %></p>
+
+    <% if @request.request_type == :input_matrix %>
+      <p>Input Matrix: <%= @request.odr_api_matrix %></p>
+    <% elsif @request.request_type == :open_street_maps %>
+      <div id="map" style="height: 360px">
+        <%= ll = map(:center => {
+                  latlng: [51.52238797921441, -0.08366235665359283],
+                  zoom: 18
+                },
+                markers: @coordinates.map { |c| { latlng: [c.first, c.second] } }
+            )
+        %>
+      </div>
+    <% end %>
+  </div>
 </div>

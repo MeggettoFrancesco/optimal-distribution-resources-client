@@ -38,12 +38,16 @@ class RequestsController < ApplicationController
   def parse_input_matrix
     matrix_hash = params[:request][:odr_api_matrix]
     size = params[:request][:matrix_size]
+    odr_api_matrix = create_matrix(matrix_hash, size)
+    
+    params[:request][:odr_api_matrix] = odr_api_matrix.to_s
+  end
 
-    odr_api_matrix = Array.new(size.to_i) do |row|
+  def create_matrix(matrix_hash, size)
+    Array.new(size.to_i) do |row|
       Array.new(size.to_i) do |col|
         matrix_hash[row.to_s][col.to_s].to_i
       end
     end
-    params[:request][:odr_api_matrix] = odr_api_matrix.to_s
   end
 end
