@@ -39,7 +39,7 @@
       <%= f.check_box :odr_api_cycles %>
     </div>
 
-    <div id="input_matrix_buttons">
+    <div id='input_matrix_buttons'>
       <div>
         <%= f.label :matrix_size %>
         <%= f.number_field :matrix_size, value: 4, in: 4..15 %>
@@ -54,7 +54,7 @@
       </div>
     </div>
 
-    <div id="input_map">
+    <div id='input_map'>
       <div>
         <%= f.label :min_latitude %>
         <%= f.text_field :min_latitude, readonly: true %>
@@ -75,7 +75,7 @@
         <%= f.text_field :max_longitude, readonly: true %>
       </div>
 
-      <div id="map">
+      <div id='map'>
         <%= map(:center => {
                 latlng: [51.52238797921441, -0.08366235665359283],
                 zoom: 18
@@ -85,7 +85,7 @@
     </div>
 
     <div>
-      <%= f.submit "Submit" %>
+      <%= f.submit 'Submit' %>
     </div>
   <% end %>
 </div>

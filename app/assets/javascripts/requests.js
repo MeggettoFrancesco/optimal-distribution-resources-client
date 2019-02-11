@@ -24,7 +24,6 @@ $(document).on('click', '#map', function() {
 });
 
 function centerMap(arrayOfLatLngs) {
-  console.log("HERE");
   var bounds = new L.LatLngBounds(arrayOfLatLngs);
   map.fitBounds(bounds);
 }
@@ -59,7 +58,7 @@ $(document).on('click', '.input_matrix_button', function() {
   // if 'is_directed_graph' is set, update mirror value
   if ($('#is_directed_graph')[0].checked) {
     var mirrorInput = $('input#request_odr_api_matrix\\[' + point['y'] + '\\]\\[' + point['x'] + '\\]');
-    copyStateOfSourceInput(currentInput, mirrorInput);
+    mirrorInput.val(currentInput.val());
   }
 });
 
@@ -69,10 +68,6 @@ function toggleTextValueOfButton(input) {
   } else {
     input.val(0);
   }
-}
-
-function copyStateOfSourceInput(source, destination) {
-  destination.val(source.val());
 }
 
 function dynamicTableCreation(number) {
@@ -101,3 +96,23 @@ function extractXAndYFromId(currId) {
   var y = after_regex[1].replace(/[\[\]']+/g,'');
   return { x: x, y: y };
 }
+
+// Automatically trigger click of solution button for refresh every 5 seconds until solution is found
+$(document).ready(function(){
+  if ($("#solution_refresh_button").length) {
+    var counter = 5;
+
+    setInterval(function() {
+      counter--;
+      if (counter >= 0) {
+        $("#solution_refresh_button").html("Refreshing in " + counter);
+      }
+
+      if (counter === 0) {
+        counter = 5;
+        $("#solution_refresh_button").click();
+      }
+
+    }, 1000);
+  }
+});

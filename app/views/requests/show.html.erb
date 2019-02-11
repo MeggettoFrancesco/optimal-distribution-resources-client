@@ -1,6 +1,12 @@
 <div>
   <h2>Solution is: <%= @request.solution %></h2>
 
+  <% unless @request.solution.present? %>
+    <%= link_to request_path(@request.id), { onclick: 'history.go(0)' } do %>
+      <button id='solution_refresh_button'>Refreshing in 5</button>
+    <% end %>
+  <% end %>
+
   <div>
     <h3>Summary</h3>
 
@@ -11,7 +17,7 @@
     <% if @request.request_type == :input_matrix %>
       <p>Input Matrix: <%= @request.odr_api_matrix %></p>
     <% elsif @request.request_type == :open_street_maps %>
-      <div id="map" style="height: 360px">
+      <div id='map' style='height: 360px'>
         <%= map(center: {
                 latlng: [51.52238797921441, -0.08366235665359283],
                 zoom: 18
