@@ -20,7 +20,7 @@ $(document).on('click', '#map', function() {
   $('#request_min_latitude').val(coordinates['_southWest']['lat']);
   $('#request_max_latitude').val(coordinates['_northEast']['lat']);
   $('#request_min_longitude').val(coordinates['_southWest']['lng']);
-  $('#request_max_longitude').val(coordinates['_southWest']['lng']);
+  $('#request_max_longitude').val(coordinates['_northEast']['lng']);
 });
 
 function centerMap(arrayOfLatLngs) {
