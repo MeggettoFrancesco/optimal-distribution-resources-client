@@ -2,7 +2,7 @@
 // All this logic will automatically be available in application.js.
 
 function toggle_input_type(input_type) {
-  if (input_type == "input_matrix") {
+  if (input_type == "input_matrix_request") {
     $("#input_matrix_buttons").show();
     $("#input_map").hide();
   }
