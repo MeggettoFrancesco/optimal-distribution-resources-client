@@ -1,5 +1,5 @@
 class OpenStreetMapRequest < ApplicationRecord
-  belongs_to :request
+  belongs_to :request, dependent: :destroy
 
   validates :min_longitude, presence: true
   validates :min_latitude, presence: true

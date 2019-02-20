@@ -1,5 +1,5 @@
 class InputMatrixRequest < ApplicationRecord
-  belongs_to :request
+  belongs_to :request, dependent: :destroy
 
   validates :is_directed_graph, inclusion: { in: [true, false] }
 
