@@ -55,8 +55,8 @@ $(document).on('click', '.input_matrix_button', function() {
 
   // toggle text and value
   toggleTextValueOfButton(currentInput);
-  // if 'is_directed_graph' is set, update mirror value
-  if ($('#is_directed_graph')[0].checked) {
+  // if 'request_input_matrix_request_attributes_is_directed_graph' is set, update mirror value
+  if (!$('#request_input_matrix_request_attributes_is_directed_graph')[0].checked) {
     var mirrorInput = $('input#request_odr_api_matrix\\[' + point['y'] + '\\]\\[' + point['x'] + '\\]');
     mirrorInput.val(currentInput.val());
   }
