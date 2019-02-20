@@ -1,5 +1,7 @@
 ActiveAdmin.register Request do
-  actions :all, except: :edit
+  menu parent: 'Requests'
+
+  actions :all, except: %i[new edit]
 
   filter :request_type
   filter :algorithm_type
@@ -21,22 +23,5 @@ ActiveAdmin.register Request do
     column :created_at
     column :updated_at
     actions
-  end
-
-  show do
-    attributes_table do
-      row :id
-      row :request_type
-      row :algorithm_type
-      row :odr_api_matrix
-      row :odr_api_path_length
-      row :odr_api_number_resources
-      row :odr_api_cycles
-      row :odr_api_uuid
-      row :solution
-      row :created_at
-      row :updated_at
-      active_admin_comments
-    end
   end
 end
