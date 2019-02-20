@@ -5,6 +5,7 @@ class RequestsController < ApplicationController
 
   def new
     @request = Request.new
+    @request.build_nested_associations
   end
 
   def create
@@ -27,20 +28,18 @@ class RequestsController < ApplicationController
   private
 
   def request_params
-    parse_input_matrix if params[:request][:request_type] == 'input_matrix'
+    parse_input_mtx if params[:request][:request_type] == 'input_matrix_request'
 
     params.require(:request)
-          .permit(:request_type, :algorithm_type, :odr_api_matrix,
-                  :odr_api_path_length, :odr_api_number_resources,
-                  :odr_api_cycles)
+          .permit(custom_request_params,
+                  input_matrix_request_attributes: input_matrix_request_params,
+                  open_street_map_request_attributes: osm_request_params)
   end
 
-  def parse_input_matrix
+  def parse_input_mtx
     matrix_hash = params[:request][:odr_api_matrix]
     size = params[:request][:matrix_size]
-    odr_api_matrix = create_matrix(matrix_hash, size)
-    
-    params[:request][:odr_api_matrix] = odr_api_matrix.to_s
+    params[:request][:odr_api_matrix] = create_matrix(matrix_hash, size).to_s
   end
 
   def create_matrix(matrix_hash, size)
@@ -49,5 +48,18 @@ class RequestsController < ApplicationController
         matrix_hash[row.to_s][col.to_s].to_i
       end
     end
+  end
+
+  def custom_request_params
+    %i[id request_type algorithm_type odr_api_matrix odr_api_path_length
+       odr_api_number_resources odr_api_cycles]
+  end
+
+  def input_matrix_request_params
+    %i[id is_directed_graph]
+  end
+
+  def osm_request_params
+    %i[id min_longitude min_latitude max_longitude max_latitude]
   end
 end

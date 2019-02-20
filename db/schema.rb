@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_08_152106) do
+ActiveRecord::Schema.define(version: 2019_02_20_113833) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "namespace"
@@ -38,12 +38,32 @@ ActiveRecord::Schema.define(version: 2019_01_08_152106) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "input_matrix_requests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.boolean "is_directed_graph"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "request_id"
+    t.index ["request_id"], name: "index_input_matrix_requests_on_request_id"
+  end
+
+  create_table "open_street_map_requests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "min_longitude"
+    t.string "min_latitude"
+    t.string "max_longitude"
+    t.string "max_latitude"
+    t.string "osm_response_file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "request_id"
+    t.index ["request_id"], name: "index_open_street_map_requests_on_request_id"
+  end
+
   create_table "requests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "request_type"
     t.string "algorithm_type"
     t.text "odr_api_matrix", limit: 4294967295
     t.integer "odr_api_path_length"
-    t.string "odr_api_number_resources"
+    t.integer "odr_api_number_resources"
     t.boolean "odr_api_cycles"
     t.string "odr_api_uuid"
     t.text "solution", limit: 4294967295
@@ -51,4 +71,6 @@ ActiveRecord::Schema.define(version: 2019_01_08_152106) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "input_matrix_requests", "requests", on_delete: :cascade
+  add_foreign_key "open_street_map_requests", "requests", on_delete: :cascade
 end

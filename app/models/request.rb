@@ -1,7 +1,15 @@
 class Request < ApplicationRecord
   extend Enumerize
 
-  enumerize :request_type, in: %i[input_matrix open_street_maps]
+  has_one :input_matrix_request
+  has_one :open_street_map_request
+
+  accepts_nested_attributes_for :input_matrix_request, allow_destroy: true,
+                                                       reject_if: :all_blank
+  accepts_nested_attributes_for :open_street_map_request, allow_destroy: true,
+                                                          reject_if: :all_blank
+
+  enumerize :request_type, in: %i[input_matrix_request open_street_map_request]
   enumerize :algorithm_type, in: %i[greedy_algorithm]
 
   serialize :solution
@@ -17,17 +25,15 @@ class Request < ApplicationRecord
 
   after_commit :create_api_request, on: :create
 
+  def build_nested_associations
+    Request.request_type.values.each do |request_type|
+      send("build_#{request_type}")
+    end
+  end
+
   private
 
   def create_api_request
-    if request_type == :open_street_maps
-      min_lon = -0.153825
-      min_lat = 51.509190
-      max_lon = -0.148707
-      max_lat = 51.513664
-      OsmGetGraphWorker.perform_async(id, min_lon, min_lat, max_lon, max_lat)
-    else
-      OdrCreateApiRequestWorker.perform_async(id)
-    end
+    send(request_type).create_api_request
   end
 end

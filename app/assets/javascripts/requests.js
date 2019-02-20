@@ -17,10 +17,10 @@ function toggle_input_type(input_type) {
 // TODO : add on zoom too!!
 $(document).on('click', '#map', function() {
   var coordinates = map.getBounds();
-  $('#request_min_latitude').val(coordinates['_southWest']['lat']);
-  $('#request_max_latitude').val(coordinates['_northEast']['lat']);
-  $('#request_min_longitude').val(coordinates['_southWest']['lng']);
-  $('#request_max_longitude').val(coordinates['_northEast']['lng']);
+  $('#request_open_street_map_request_attributes_min_latitude').val(coordinates['_southWest']['lat']);
+  $('#request_open_street_map_request_attributes_max_latitude').val(coordinates['_northEast']['lat']);
+  $('#request_open_street_map_request_attributes_min_longitude').val(coordinates['_southWest']['lng']);
+  $('#request_open_street_map_request_attributes_max_longitude').val(coordinates['_northEast']['lng']);
 });
 
 function centerMap(arrayOfLatLngs) {

@@ -1,5 +1,5 @@
 <div>
-  <%= form_with model: @request, local: true do |f| %>
+  <%= form_for @request do |f| %>
     <div>
         <h1>Form Validation</h1>
     </div>
@@ -45,43 +45,47 @@
         <%= f.number_field :matrix_size, value: 4, in: 4..15 %>
       </div>
 
-      <div>
-        <%= f.label :is_directed_graph %>
-        <%= check_box_tag(:is_directed_graph) %>
-      </div>
+      <%= f.fields_for :input_matrix_request do |input_matrix_form| %>
+        <div>
+          <%= input_matrix_form.label :is_directed_graph %>
+          <%= input_matrix_form.check_box :is_directed_graph %>
+        </div>
+      <% end %>
 
       <div id='input_table'>
       </div>
     </div>
 
     <div id='input_map'>
-      <div>
-        <%= f.label :min_latitude %>
-        <%= f.text_field :min_latitude, readonly: true %>
-      </div>
+      <%= f.fields_for :open_street_map_request do |osm_form| %>
+        <div>
+          <%= osm_form.label :min_latitude %>
+          <%= osm_form.text_field :min_latitude, readonly: true %>
+        </div>
 
-      <div>
-        <%= f.label :max_latitude %>
-        <%= f.text_field :max_latitude, readonly: true %>
-      </div>
+        <div>
+          <%= osm_form.label :max_latitude %>
+          <%= osm_form.text_field :max_latitude, readonly: true %>
+        </div>
 
-      <div>
-        <%= f.label :min_longitude %>
-        <%= f.text_field :min_longitude, readonly: true %>
-      </div>
+        <div>
+          <%= osm_form.label :min_longitude %>
+          <%= osm_form.text_field :min_longitude, readonly: true %>
+        </div>
 
-      <div>
-        <%= f.label :max_longitude %>
-        <%= f.text_field :max_longitude, readonly: true %>
-      </div>
+        <div>
+          <%= osm_form.label :max_longitude %>
+          <%= osm_form.text_field :max_longitude, readonly: true %>
+        </div>
 
-      <div id='map'>
-        <%= map(:center => {
-                latlng: [51.52238797921441, -0.08366235665359283],
-                zoom: 18
-              })
-        %>
-      </div>
+        <div id='map'>
+          <%= map(:center => {
+                  latlng: [51.52238797921441, -0.08366235665359283],
+                  zoom: 18
+                })
+          %>
+        </div>
+      <% end %>
     </div>
 
     <div>

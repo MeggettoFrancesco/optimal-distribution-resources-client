@@ -14,7 +14,7 @@
     <p>Number of resources: <%= @request.odr_api_number_resources %></p>
     <p>Cycles: <%= @request.odr_api_cycles %></p>
 
-    <% if @request.request_type == :input_matrix %>
+    <% if @request.request_type == :input_matrix_request %>
       <p>Input Matrix: <%= @request.odr_api_matrix %></p>
     <% elsif @request.request_type == :open_street_maps %>
       <div id='map' style='height: 360px'>
