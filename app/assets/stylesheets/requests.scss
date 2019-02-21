@@ -14,7 +14,7 @@ th, td {
   display: contents;
 }
 
-td input[type="text"] {
+td, tr input[type="text"] {
   width: 15px;
 }
 
@@ -24,17 +24,19 @@ table {
 }
 
 .button {
-  background-color: #8b9297;
-  background-image: linear-gradient(180deg, #8b9297, #484d51);
-  color: white;
   text-align: center;
-  text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  border-radius: 50%;
   cursor: pointer;
 }
 
 .input_matrix_button {
-  border-radius: 50%
+  background-image: linear-gradient(180deg, #8b9297, #484d51);
+  color: white;
 }
+
+.input_matrix_button_header {
+  background-image: linear-gradient(180deg, #ffffff, #ffffff);
+  color: black;
+}
+

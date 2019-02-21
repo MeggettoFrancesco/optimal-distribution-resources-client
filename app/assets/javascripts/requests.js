@@ -92,13 +92,11 @@ function generateTable(number) {
   var table = "<table><tr>";
   var end_table = "</table>";
 
-  for (var i = 0; i < number; i++) {
-    table += tableHeader(i + 1);
-  }
+  table += tableVerticalHeader(number);
 
   for (var i = 0; i < number; i++) {
     table += "<tr>";
-    table += tableHeader(i + 1);
+    table += tableHorizontalHeader(i + 1);
     for (var j = 0; j < number; j++) {
       new_button = "<input type='text' value='0' name='request[odr_api_matrix[" + i + "][" + j + "]]' id='request_odr_api_matrix[" + i + "][" + j + "]' readonly='readonly' class='button input_matrix_button'>";
       table += "<td>" + new_button + "</td>";
@@ -109,8 +107,16 @@ function generateTable(number) {
   return table + end_table;
 }
 
-function tableHeader(number) {
-  return "<th><label>" + number + "</label></th>";
+function tableVerticalHeader(number) {
+  new_th = "<th><input disabled class='button input_matrix_button_header' type='text'></th>";
+  for (var i = 0; i < number; i++) {
+    new_th += "<th><input value=" + (i + 1) + " disabled class='button input_matrix_button_header' type='text'></th>";
+  }
+  return new_th;
+}
+
+function tableHorizontalHeader(number) {
+  return "<th><input value=" + number + " disabled class='button input_matrix_button_header' type='text'></th>";
 }
 
 function extractXAndYFromId(currId) {
