@@ -10,7 +10,8 @@ class OpenStreetMapRequest < ApplicationRecord
 
   BASE_OSM_URL = 'https://api.openstreetmap.org/api/0.6/'.freeze
 
-  after_create :update_matrix
+  # TODO : try and move to an after_create. Conflict with after_commit
+  before_validation :set_matrix
 
   def create_api_request
     OdrCreateApiRequestWorker.perform_async(request_id)
@@ -36,12 +37,11 @@ class OpenStreetMapRequest < ApplicationRecord
 
   private
 
-  def update_matrix
+  def set_matrix
     url = osm_url(min_longitude, min_latitude, max_longitude, max_latitude)
     self.remote_osm_response_file_url = url
 
     request.odr_api_matrix = retrieve_input_matrix
-    save!
   end
 
   def osm_url(min_lon, min_lat, max_lon, max_lat)
@@ -82,7 +82,8 @@ class OpenStreetMapRequest < ApplicationRecord
 
   # TODO : fetch tags from model
   def wanted_tags?(way)
-    good_tags = %w[motorway trunk primary secondary tertialy residential]
+    good_tags = %w[motorway trunk primary secondary tertialy unclassified
+                   residential]
     way.css(:tag).each do |tags|
       return true if tags.attributes['k'].value == 'highway' &&
                      good_tags.include?(tags.attributes['v'].value)

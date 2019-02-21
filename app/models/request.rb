@@ -16,7 +16,7 @@ class Request < ApplicationRecord
 
   validates :request_type, presence: true
   validates :algorithm_type, presence: true
-  # validates :odr_api_matrix, presence: true
+  validates :odr_api_matrix, presence: true
   validates :odr_api_path_length, presence: true,
                                   numericality: { greater_than_or_equal_to: 1 }
   validates :odr_api_number_resources,
