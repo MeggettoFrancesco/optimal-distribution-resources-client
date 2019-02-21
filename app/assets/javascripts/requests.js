@@ -101,7 +101,7 @@ function generateTable(number) {
     table += tableHeader(i + 1);
     for (var j = 0; j < number; j++) {
       new_button = "<input type='text' value='0' name='request[odr_api_matrix[" + i + "][" + j + "]]' id='request_odr_api_matrix[" + i + "][" + j + "]' readonly='readonly' class='button input_matrix_button'>";
-      table += "<td style='display: inline-block' >" + new_button + "</td>";
+      table += "<td>" + new_button + "</td>";
     }
     table += "</tr>";
   }

@@ -14,6 +14,10 @@ th, td {
   display: contents;
 }
 
+td input[type="text"] {
+  width: 15px;
+}
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
