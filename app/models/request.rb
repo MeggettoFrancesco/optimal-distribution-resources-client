@@ -16,7 +16,7 @@ class Request < ApplicationRecord
 
   validates :request_type, presence: true
   validates :algorithm_type, presence: true
-  validates :odr_api_matrix, presence: true
+  # validates :odr_api_matrix, presence: true
   validates :odr_api_path_length, presence: true,
                                   numericality: { greater_than_or_equal_to: 1 }
   validates :odr_api_number_resources,
@@ -29,6 +29,18 @@ class Request < ApplicationRecord
     Request.request_type.values.each do |request_type|
       send("build_#{request_type}")
     end
+  end
+
+  def coordinates
+    send(request_type).coordinates
+  end
+
+  def input_matrix_request?
+    request_type == :input_matrix_request
+  end
+
+  def open_street_map_request?
+    request_type == :open_street_map_request
   end
 
   private

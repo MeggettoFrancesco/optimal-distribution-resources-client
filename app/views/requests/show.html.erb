@@ -14,15 +14,17 @@
     <p>Number of resources: <%= @request.odr_api_number_resources %></p>
     <p>Cycles: <%= @request.odr_api_cycles %></p>
 
-    <% if @request.request_type == :input_matrix_request %>
+    <% if @request.input_matrix_request? %>
       <p>Input Matrix: <%= @request.odr_api_matrix %></p>
-    <% elsif @request.request_type == :open_street_maps %>
+    <% elsif @request.open_street_map_request? %>
       <div id='map' style='height: 360px'>
         <%= map(center: {
                 latlng: [51.52238797921441, -0.08366235665359283],
                 zoom: 18
               },
-              markers: @coordinates.map { |c| { latlng: [c.first, c.second] } }
+              markers: @coordinates.each_with_index.map { |c, i| {
+                latlng: [c.first, c.second], popup: "Solution ID [#{i}]: #{c.first}, #{c.second}"
+              } }
             )
         %>
       </div>

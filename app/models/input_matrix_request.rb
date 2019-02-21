@@ -6,4 +6,8 @@ class InputMatrixRequest < ApplicationRecord
   def create_api_request
     OdrCreateApiRequestWorker.perform_async(request_id)
   end
+
+  def coordinates
+    request.solution
+  end
 end

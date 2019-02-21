@@ -20,9 +20,7 @@ class RequestsController < ApplicationController
 
   def show
     @request = Request.find(params[:id])
-
-    # Coordinates should hold nodes' number or lat/lon depending on type
-    @coordinates = [[51.5124726, -0.1493685], [51.5134696, -0.1498633], [51.5132632, -0.1509248]]
+    @coordinates = @request.coordinates
   end
 
   private
