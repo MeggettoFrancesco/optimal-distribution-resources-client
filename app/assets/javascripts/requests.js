@@ -23,6 +23,21 @@ $(document).on('click', '#map', function() {
   $('#request_open_street_map_request_attributes_max_longitude').val(coordinates['_northEast']['lng']);
 });
 
+// Center the map to display all markers
+$(document).ready(function() {
+  var markers = [];
+  Object.keys(map._layers).forEach(function (key) { 
+    var value = map._layers[key]._latlng;
+    if (typeof value !== 'undefined') {
+      markers.push([value['lat'], value['lng']]);
+    }
+  });
+
+  if (markers.length > 0) {
+    map.fitBounds(markers);
+  }
+});
+
 function centerMap(arrayOfLatLngs) {
   var bounds = new L.LatLngBounds(arrayOfLatLngs);
   map.fitBounds(bounds);
@@ -41,7 +56,6 @@ $(function () {
     dynamicTableCreation(value);
   }
 });
-
 
 // Table buttons click
 $(document).on('click', '.input_matrix_button', function() {
@@ -107,7 +121,7 @@ function extractXAndYFromId(currId) {
 }
 
 // Automatically trigger click of solution button for refresh every 5 seconds until solution is found
-$(document).ready(function(){
+$(document).ready(function() {
   if ($("#solution_refresh_button").length) {
     var counter = 5;
 
