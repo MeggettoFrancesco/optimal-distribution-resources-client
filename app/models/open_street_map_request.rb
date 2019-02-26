@@ -85,16 +85,29 @@ class OpenStreetMapRequest < ApplicationRecord
     nodes
   end
 
-  # TODO : fetch tags from model
   def wanted_tags?(way)
-    good_tags = %w[motorway trunk primary secondary tertialy unclassified
-                   residential]
-    way.css(:tag).each do |tags|
-      return true if tags.attributes['k'].value == 'highway' &&
-                     good_tags.include?(tags.attributes['v'].value)
+    tag_keys = retrieve_tag_keys
+
+    way.css(:tag).each do |xml_tags|
+      xml_tag_key = xml_tags.attributes['k'].value
+      xml_tag_value = xml_tags.attributes['v'].value
+
+      tag_values = retrieve_tag_values_by_key(xml_tag_key)
+
+      return true if tag_keys.include?(xml_tag_key) &&
+                     tag_values.include?(xml_tag_value)
     end
 
     false
+  end
+
+  def retrieve_tag_keys
+    tag_infos.map(&:tag_key).uniq
+  end
+
+  def retrieve_tag_values_by_key(tag_key)
+    all_tags = tag_infos.select { |t| t.tag_key == tag_key }
+    all_tags.map(&:tag_value).uniq
   end
 
   def create_matrix(nodes, edges)

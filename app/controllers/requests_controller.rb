@@ -58,6 +58,9 @@ class RequestsController < ApplicationController
   end
 
   def osm_request_params
-    %i[id min_longitude min_latitude max_longitude max_latitude]
+    [
+      :id, :min_longitude, :min_latitude, :max_longitude, :max_latitude,
+      tag_info_ids: []
+    ]
   end
 end
