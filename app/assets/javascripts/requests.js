@@ -9,19 +9,28 @@ function toggle_input_type(input_type) {
   else {
     $("#input_matrix_buttons").hide();
     $("#input_map").show();
+    setMapGpsCoordinate();
+    setCoordinateLabelsValues();
     map.invalidateSize();
   }
 }
 
+function setMapGpsCoordinate() {
+  map.locate({setView : true});
+}
+
 // Update min lat, max lat, min lon, max lon of the view on map click
-// TODO : add on zoom too!!
 $(document).on('click', '#map', function() {
+  setCoordinateLabelsValues();
+});
+
+function setCoordinateLabelsValues() {
   var coordinates = map.getBounds();
   $('#request_open_street_map_request_attributes_min_latitude').val(coordinates['_southWest']['lat']);
   $('#request_open_street_map_request_attributes_max_latitude').val(coordinates['_northEast']['lat']);
   $('#request_open_street_map_request_attributes_min_longitude').val(coordinates['_southWest']['lng']);
   $('#request_open_street_map_request_attributes_max_longitude').val(coordinates['_northEast']['lng']);
-});
+}
 
 // Center the map to display all markers
 $(document).ready(function() {

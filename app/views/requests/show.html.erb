@@ -19,7 +19,7 @@
     <% elsif @request.open_street_map_request? %>
       <div id='map'>
         <%= map(center: {
-                latlng: [51.52238797921441, -0.08366235665359283],
+                latlng: [51.509865, -0.118092],
                 zoom: 18
               },
               markers: @coordinates.each_with_index.map { |c, i| {
