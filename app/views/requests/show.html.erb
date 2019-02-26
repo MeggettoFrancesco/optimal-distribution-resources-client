@@ -17,7 +17,7 @@
     <% if @request.input_matrix_request? %>
       <p>Input Matrix: <%= @request.odr_api_matrix %></p>
     <% elsif @request.open_street_map_request? %>
-      <div id='map' style='height: 360px'>
+      <div id='map'>
         <%= map(center: {
                 latlng: [51.52238797921441, -0.08366235665359283],
                 zoom: 18
