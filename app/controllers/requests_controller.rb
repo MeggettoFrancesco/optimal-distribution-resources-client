@@ -4,23 +4,23 @@ class RequestsController < ApplicationController
   end
 
   def new
-    @request = Request.new
-    @request.build_nested_associations
+    @my_request = Request.new
+    @my_request.build_nested_associations
   end
 
   def create
-    @request = Request.create(request_params)
+    @my_request = Request.create(request_params)
 
-    if @request.save
-      redirect_to @request
+    if @my_request.save
+      redirect_to @my_request
     else
       render :new
     end
   end
 
   def show
-    @request = Request.find(params[:id])
-    @coordinates = @request.coordinates
+    @my_request = Request.find(params[:id])
+    @coordinates = @my_request.coordinates
   end
 
   private

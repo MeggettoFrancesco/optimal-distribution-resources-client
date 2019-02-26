@@ -1,5 +1,6 @@
 class OpenStreetMapRequest < ApplicationRecord
   belongs_to :request, dependent: :destroy
+  has_and_belongs_to_many :tag_infos
 
   validates :min_longitude, presence: true
   validates :min_latitude, presence: true
@@ -12,6 +13,10 @@ class OpenStreetMapRequest < ApplicationRecord
 
   # TODO : try and move to an after_create. Conflict with after_commit
   before_validation :set_matrix
+
+  def display_name
+    "Open Street Map Request ##{id}"
+  end
 
   def create_api_request
     OdrCreateApiRequestWorker.perform_async(request_id)

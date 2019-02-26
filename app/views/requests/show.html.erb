@@ -1,8 +1,8 @@
 <div>
-  <h2>Solution is: <%= @request.solution %></h2>
+  <h2>Solution is: <%= @my_request.solution %></h2>
 
-  <% if @request.solution.nil? %>
-    <%= link_to request_path(@request.id), { onclick: 'history.go(0)' } do %>
+  <% if @my_request.solution.nil? %>
+    <%= link_to request_path(@my_request.id), { onclick: 'history.go(0)' } do %>
       <button id='solution_refresh_button'>Refreshing in 5</button>
     <% end %>
   <% end %>
@@ -10,13 +10,13 @@
   <div>
     <h3>Summary</h3>
 
-    <p>Path Length: <%= @request.odr_api_path_length %></p>
-    <p>Number of resources: <%= @request.odr_api_number_resources %></p>
-    <p>Cycles: <%= @request.odr_api_cycles %></p>
+    <p>Path Length: <%= @my_request.odr_api_path_length %></p>
+    <p>Number of resources: <%= @my_request.odr_api_number_resources %></p>
+    <p>Cycles: <%= @my_request.odr_api_cycles %></p>
 
-    <% if @request.input_matrix_request? %>
-      <p>Input Matrix: <%= @request.odr_api_matrix %></p>
-    <% elsif @request.open_street_map_request? %>
+    <% if @my_request.input_matrix_request? %>
+      <p>Input Matrix: <%= @my_request.odr_api_matrix %></p>
+    <% elsif @my_request.open_street_map_request? %>
       <div id='map'>
         <%= map(center: {
                 latlng: [51.509865, -0.118092],

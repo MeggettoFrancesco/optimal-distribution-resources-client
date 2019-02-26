@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_20_113833) do
+ActiveRecord::Schema.define(version: 2019_02_26_154210) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "namespace"
@@ -58,6 +58,12 @@ ActiveRecord::Schema.define(version: 2019_02_20_113833) do
     t.index ["request_id"], name: "index_open_street_map_requests_on_request_id"
   end
 
+  create_table "open_street_map_requests_tag_infos", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "open_street_map_request_id", null: false
+    t.bigint "tag_info_id", null: false
+    t.index ["open_street_map_request_id", "tag_info_id"], name: "index_osm_request_id_and_tag_info_id"
+  end
+
   create_table "requests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "request_type"
     t.string "algorithm_type"
@@ -67,6 +73,13 @@ ActiveRecord::Schema.define(version: 2019_02_20_113833) do
     t.boolean "odr_api_cycles"
     t.string "odr_api_uuid"
     t.text "solution", limit: 4294967295
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tag_infos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "tag_key"
+    t.string "tag_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

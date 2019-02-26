@@ -10,3 +10,8 @@ require 'factory_bot_rails'
 
 puts 'Creating admin'
 FactoryBot.create(:admin_user, email: 'admin@example.com')
+
+puts 'Creating all Tag Infos from https://taginfo.openstreetmap.org/api/4/tags/popular'
+TagInfo.all_tag_infos.each do |tag|
+  FactoryBot.create(:tag_info, tag_key: tag[:key], tag_value: tag[:value])
+end
