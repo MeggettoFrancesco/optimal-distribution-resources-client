@@ -79,6 +79,7 @@
         </div>
 
         <div>
+          <%= osm_form.label 'OSM Tags' %>
           <%= osm_form.select(:tag_info_ids, TagInfo.all.collect { |t| ["#{t.tag_key} - #{t.tag_value}", t.id] }, { prompt: 'Please select...' }, { multiple: true }) %>
         </div>
 
