@@ -6,6 +6,7 @@ class OpenStreetMapRequest < ApplicationRecord
   validates :min_latitude, presence: true
   validates :max_longitude, presence: true
   validates :max_latitude, presence: true
+  validate :more_than_zero_tags
 
   mount_uploader :osm_response_file, OpenStreetMapXmlUploader
 
@@ -13,6 +14,10 @@ class OpenStreetMapRequest < ApplicationRecord
 
   # TODO : try and move to an after_create. Conflict with after_commit
   before_validation :set_matrix
+
+  def more_than_zero_tags
+    errors.add(:tag_infos, "Must have 1+ tags") if tag_infos.size < 1
+  end
 
   def display_name
     "Open Street Map Request ##{id}"
