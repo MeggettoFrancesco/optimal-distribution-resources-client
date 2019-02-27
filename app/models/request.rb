@@ -43,6 +43,13 @@ class Request < ApplicationRecord
     request_type == :open_street_map_request
   end
 
+  def destroy_unwanted_nested_associations
+    (Request.request_type.values - [request_type]).each do |request_type|
+      nested_resource = send(request_type)
+      nested_resource.delete if nested_resource.present?
+    end
+  end
+
   private
 
   def create_api_request

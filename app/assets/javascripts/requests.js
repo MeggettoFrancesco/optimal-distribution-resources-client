@@ -53,13 +53,13 @@ function centerMap(arrayOfLatLngs) {
 }
 
 // Create input table
-$(document).on('change', '#request_matrix_size', function() {
+$(document).on('change', '#request_input_matrix_request_attributes_matrix_size', function() {
   dynamicTableCreation(this.value);
 });
 
 // Create input table on load with default value
 $(function () {
-  var request_matrix_size = $('#request_matrix_size');
+  var request_matrix_size = $('#request_input_matrix_request_attributes_matrix_size');
   if(request_matrix_size.length) {
     var value = request_matrix_size[0].value;
     dynamicTableCreation(value);

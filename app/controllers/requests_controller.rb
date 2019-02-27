@@ -10,6 +10,7 @@ class RequestsController < ApplicationController
 
   def create
     @my_request = Request.create(request_params)
+    @my_request.destroy_unwanted_nested_associations
 
     if @my_request.save
       redirect_to @my_request
@@ -54,7 +55,7 @@ class RequestsController < ApplicationController
   end
 
   def input_matrix_request_params
-    %i[id is_directed_graph]
+    %i[id is_directed_graph matrix_size]
   end
 
   def osm_request_params

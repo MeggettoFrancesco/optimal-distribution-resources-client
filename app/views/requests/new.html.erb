@@ -4,6 +4,12 @@
         <h1>Optimal Distribution of Resources - Form </h1>
     </div>
 
+    <% if @my_request.errors.any? %>
+      <% @my_request.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    <% end %>
+
     <div>
       <%= f.label :request_type %>
       <%= f.collection_radio_buttons(:request_type, Request.request_type.values, :value, :text, { checked: Request.request_type.values.first }) do |b|
@@ -40,12 +46,12 @@
     </div>
 
     <div id='input_matrix_buttons'>
-      <div>
-        <%= f.label :matrix_size %>
-        <%= f.number_field :matrix_size, value: 4, in: 4..25 %>
-      </div>
-
       <%= f.fields_for :input_matrix_request do |input_matrix_form| %>
+        <div>
+          <%= input_matrix_form.label :matrix_size %>
+          <%= input_matrix_form.number_field :matrix_size, value: 4, in: 4..25 %>
+        </div>
+
         <div>
           <%= input_matrix_form.label :is_directed_graph %>
           <%= input_matrix_form.check_box :is_directed_graph %>

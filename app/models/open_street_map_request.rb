@@ -16,7 +16,7 @@ class OpenStreetMapRequest < ApplicationRecord
   before_validation :set_matrix
 
   def more_than_zero_tags
-    errors.add(:tag_infos, "Must have 1+ tags") if tag_infos.size < 1
+    errors.add(:tag_infos, 'Must have 1+ tags') if tag_infos.empty?
   end
 
   def display_name
