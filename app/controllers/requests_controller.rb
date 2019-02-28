@@ -10,7 +10,7 @@ class RequestsController < ApplicationController
 
   def create
     @my_request = Request.create(request_params)
-    @my_request.destroy_unwanted_nested_associations
+    @my_request.delete_unwanted_nested_associations
 
     if @my_request.save
       redirect_to @my_request

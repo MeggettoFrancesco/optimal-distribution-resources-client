@@ -49,7 +49,7 @@ class OpenStreetMapRequest < ApplicationRecord
 
   def set_matrix
     url = osm_url(min_longitude, min_latitude, max_longitude, max_latitude)
-    self.remote_osm_response_file_url = url
+    self.remote_osm_response_file_url = url unless osm_response_file?
 
     request.odr_api_matrix = retrieve_input_matrix
   end
