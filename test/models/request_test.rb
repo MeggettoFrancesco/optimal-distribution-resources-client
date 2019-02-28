@@ -55,15 +55,12 @@ class RequestTest < ActiveSupport::TestCase
   end
 
   test 'children other than current one should be nil' do
-    (Request.request_type.values - [@request.request_type]).each do |e|
+    current_type = @request.request_type
+    (Request.request_type.values - [current_type]).each do |e|
       assert_nil @request.send(e)
     end
-  end
 
-  test 'should be invalid without request_type children' do
-    @request.send("#{@request.request_type}=", nil)
-    assert @request.invalid?
-    assert_not_nil @request.errors[:request_type]
+    assert_not_nil @request.send(current_type)
   end
 
   test 'after a build_nested_associations, it should have all

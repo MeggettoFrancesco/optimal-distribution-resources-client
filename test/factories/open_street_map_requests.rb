@@ -15,7 +15,7 @@ FactoryBot.define do
 
     after(:build) do |open_street_map_request|
       list_tags = open_street_map_request.tag_infos
-      rand(1..4).times do
+      rand(2..4).times do
         tag = new_tag
         list_tags << tag unless list_tags.include?(tag)
       end

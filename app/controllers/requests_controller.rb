@@ -37,7 +37,7 @@ class RequestsController < ApplicationController
 
   def parse_input_mtx
     matrix_hash = params[:request][:odr_api_matrix]
-    size = params[:request][:matrix_size]
+    size = params[:request][:input_matrix_request_attributes][:matrix_size]
     params[:request][:odr_api_matrix] = create_matrix(matrix_hash, size).to_s
   end
 

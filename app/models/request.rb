@@ -22,7 +22,6 @@ class Request < ApplicationRecord
   validates :odr_api_number_resources,
             presence: true, numericality: { greater_than_or_equal_to: 1 }
   validates :odr_api_cycles, inclusion: { in: [true, false] }
-  validate :existence_of_relationships
 
   after_commit :create_api_request, on: :create
 
@@ -52,26 +51,6 @@ class Request < ApplicationRecord
   end
 
   private
-
-  def existence_of_relationships
-    other_types_not_filled_in
-    selected_type_filled_in if request_type.present?
-  end
-
-  def other_types_not_filled_in
-    (Request.request_type.values - [request_type]).each do |e|
-      nested_model_error(:unselected_nested_model_filled_in) if send(e).present?
-    end
-  end
-
-  def selected_type_filled_in
-    invalid = send(request_type).present?
-    nested_model_error(:nested_model_not_present) unless invalid
-  end
-
-  def nested_model_error(type)
-    errors.add(:request_type, type)
-  end
 
   def create_api_request
     send(request_type).create_api_request
