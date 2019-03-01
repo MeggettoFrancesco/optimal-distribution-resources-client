@@ -26,10 +26,7 @@ class OdrCreateApiRequestWorker
 
       # Run second worker and fetch the solution
       OdrFetchApiSolutionWorker.perform_async(request_id, api_uuid)
-    else
-      p 'SEND MESSAGE TO ROLLBAR'
-      p response
-      # Send message to Rollbar
     end
+    # Send message to Rollbar on "else"
   end
 end

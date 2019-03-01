@@ -7,6 +7,8 @@ class OdrFetchApiSolutionWorker
     analyze_response(response, request_id)
   rescue StandardError
     OdrFetchApiSolutionWorker.perform_in(5, request_id, api_request_uuid)
+    # Exit looping if in test environment
+    raise StandardError, 'Failure' if Rails.env.test?
   end
 
   private
@@ -19,10 +21,7 @@ class OdrFetchApiSolutionWorker
       raise StandardError, 'Still computing. Ask again' if still_computing
 
       Request.update(request_id, solution: response['result'])
-    else
-      p 'SEND MESSAGE TO ROLLBAR'
-      p response
-      # Send message to Rollbar
     end
+    # Send message to Rollbar on "else"
   end
 end

@@ -38,7 +38,7 @@ module SharedModelsTest
     stub_odr_api_request(my_request)
     OdrCreateApiRequestWorker.drain
     my_request.reload
-    sub_odr_api_solution_request(my_request)
+    stub_odr_api_solution_request(my_request)
     OdrFetchApiSolutionWorker.drain
 
     my_request.reload

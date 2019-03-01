@@ -13,11 +13,6 @@ class OpenStreetMapXmlUploaderTest < ActiveSupport::TestCase
     @osm_request.save!
   end
 
-  test 'content type should be application/xml' do
-    skip
-    assert_equal('application/xml', @osm_request.osm_response_file.content_type)
-  end
-
   test 'osm_response_file path should be present' do
     assert @osm_request.osm_response_file.path.present?
   end
