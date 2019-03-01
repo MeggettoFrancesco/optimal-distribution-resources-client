@@ -60,13 +60,11 @@ class OpenStreetMapRequestTest < ActiveSupport::TestCase
     assert_not_empty @osm_request.display_name
   end
 
-  # set_matrix
-
   test 'create_api_request should create a OdrCreateApiRequestWorker job' do
-    Sidekiq::Worker.clear_all
-    @osm_request.create_api_request
-    assert_equal 1, OdrCreateApiRequestWorker.jobs.size
+    create_api_request_creates_job(@osm_request)
   end
 
-  # coordinates
+  test 'coordinates should return request.coordinates' do
+    check_coordinates(@osm_request)
+  end
 end

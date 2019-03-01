@@ -23,14 +23,10 @@ class InputMatrixRequestTest < ActiveSupport::TestCase
   end
 
   test 'create_api_request should create a OdrCreateApiRequestWorker job' do
-    Sidekiq::Worker.clear_all
-    @input_matrix_request.create_api_request
-    assert_equal 1, OdrCreateApiRequestWorker.jobs.size
+    create_api_request_creates_job(@input_matrix_request)
   end
 
   test 'coordinates should return request.coordinates' do
-    coordinates = @input_matrix_request.coordinates
-    solution = @input_matrix_request.request.solution
-    assert_equal solution, coordinates
+    check_coordinates(@input_matrix_request)
   end
 end

@@ -35,19 +35,11 @@ class OpenStreetMapRequest < ApplicationRecord
     fetch_coordinates(nodes)
   end
 
-  def fetch_coordinates(nodes)
-    coordinates = []
-
-    request&.solution&.each do |s|
-      coordinates << [nodes[s - 1][:lat].to_f, nodes[s - 1][:lon].to_f]
-    end
-
-    coordinates
-  end
-
   private
 
   def set_matrix
+    return unless request.request_type.open_street_map_request?
+
     url = osm_url(min_longitude, min_latitude, max_longitude, max_latitude)
     self.remote_osm_response_file_url = url unless osm_response_file?
 
@@ -126,5 +118,15 @@ class OpenStreetMapRequest < ApplicationRecord
         end
       end
     end
+  end
+
+  def fetch_coordinates(nodes)
+    coordinates = []
+
+    request&.solution&.each do |s|
+      coordinates << [nodes[s - 1][:lat].to_f, nodes[s - 1][:lon].to_f]
+    end
+
+    coordinates
   end
 end

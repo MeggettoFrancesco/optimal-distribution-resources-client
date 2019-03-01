@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'sidekiq/testing'
 require 'models/_shared_models_test'
 
 class RequestTest < ActiveSupport::TestCase
@@ -72,6 +73,8 @@ class RequestTest < ActiveSupport::TestCase
   end
 
   test 'coordinates should return coordinates of specific type' do
+    perform_odr_api_calls(@request)
+
     sub_type_coordinates = @request.send(@request.request_type).coordinates
     assert_equal sub_type_coordinates, @request.coordinates
   end
@@ -98,8 +101,6 @@ class RequestTest < ActiveSupport::TestCase
   end
 
   test 'on save of new object, should create a OdrCreateApiRequestWorker job' do
-    Sidekiq::Worker.clear_all
-    @request.save!
-    assert_equal 1, OdrCreateApiRequestWorker.jobs.size
+    create_api_request_creates_job(@request)
   end
 end

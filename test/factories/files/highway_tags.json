@@ -1,0 +1,30 @@
+[
+    {
+        "key": "highway",
+        "value": "motorway"
+    },
+    {
+        "key": "highway",
+        "value": "primary"
+    },
+    {
+        "key": "highway",
+        "value": "residential"
+    },
+    {
+        "key": "highway",
+        "value": "secondary"
+    },
+    {
+        "key": "highway",
+        "value": "tertiary"
+    },
+    {
+        "key": "highway",
+        "value": "trunk"
+    },
+    {
+        "key": "highway",
+        "value": "unclassified"
+    }
+]

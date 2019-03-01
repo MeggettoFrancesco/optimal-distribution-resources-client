@@ -24,5 +24,19 @@ class TagInfoTest < ActiveSupport::TestCase
     assert_not_empty @tag_info.display_name
   end
 
-  # TODO : test for TagInfo.all_tag_infos
+  test 'TagInfo.all_tag_infos should contain Array of Hashes' do
+    stub_popular_tags_api_request
+    tags = TagInfo.all_tag_infos
+
+    assert tags.is_a? Array
+    assert tags.first.is_a? Hash
+  end
+
+  test 'TagInfo.all_tag_infos should contain highway as key in hash items' do
+    stub_popular_tags_api_request
+    tags = TagInfo.all_tag_infos
+
+    has_any_highway = tags.any? { |h| h[:key] == 'highway' }
+    assert has_any_highway
+  end
 end

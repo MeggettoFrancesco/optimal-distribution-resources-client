@@ -16,6 +16,34 @@ module SharedModelsTest
     check_negative_and_positive_limits(object, attribute)
   end
 
+  def create_api_request_creates_job(my_request)
+    Sidekiq::Worker.clear_all
+    my_request.send('create_api_request')
+    assert_equal 1, OdrCreateApiRequestWorker.jobs.size
+  end
+
+  def check_coordinates(nested_request)
+    perform_odr_api_calls(nested_request.request)
+
+    coordinates = nested_request.coordinates
+    expected_coordinates = nested_request.request.coordinates
+
+    assert_equal expected_coordinates, coordinates
+  end
+
+  def perform_odr_api_calls(my_request)
+    Sidekiq::Worker.clear_all
+    my_request.save!
+
+    stub_odr_api_request(my_request)
+    OdrCreateApiRequestWorker.drain
+    my_request.reload
+    sub_odr_api_solution_request(my_request)
+    OdrFetchApiSolutionWorker.drain
+
+    my_request.reload
+  end
+
   private
 
   def check_negative_and_positive_limits(object, attribute)
