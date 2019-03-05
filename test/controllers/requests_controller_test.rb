@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class RequestsControllerTest < ActionDispatch::IntegrationTest
-  test 'requests#inde should redirect to requests#new' do
+  test 'requests#index should redirect to requests#new' do
     get requests_path
     assert_redirected_to new_request_path
   end
@@ -16,7 +16,7 @@ class RequestsControllerTest < ActionDispatch::IntegrationTest
     stub_osm_api(my_request)
 
     post requests_path(
-      request: obtain_request_only_hash(my_request)
+      request: obtain_my_request_hash(my_request)
     )
 
     new_request = Request.last
@@ -31,13 +31,13 @@ class RequestsControllerTest < ActionDispatch::IntegrationTest
     stub_osm_api(my_request)
 
     post requests_path(
-      request: obtain_request_only_hash(my_request)
+      request: obtain_my_request_hash(my_request)
     )
 
     assert_response :success
   end
 
-  test 'should home#show' do
+  test 'should request#show' do
     my_request = create(:request)
     get request_path(id: my_request)
     assert_response :success
@@ -50,7 +50,7 @@ class RequestsControllerTest < ActionDispatch::IntegrationTest
     stub_osm_api_request(osm_request) if osm_request.present?
   end
 
-  def obtain_request_only_hash(my_request)
+  def obtain_my_request_hash(my_request)
     request_hash = {}
     add_nested_attributes_definition!(request_hash)
     add_request_attributes!(my_request, request_hash)

@@ -14,8 +14,7 @@ class RequestTest < ActiveSupport::TestCase
   end
 
   test 'should be invalid without request_type' do
-    @request.request_type = nil
-    assert @request.invalid?
+    invalid_without(@request, :request_type)
   end
 
   test 'request_type should be in request_type.values' do
@@ -23,8 +22,7 @@ class RequestTest < ActiveSupport::TestCase
   end
 
   test 'should be invalid without algorithm_type' do
-    @request.algorithm_type = nil
-    assert @request.invalid?
+    invalid_without(@request, :algorithm_type)
   end
 
   test 'algorithm_type should be in algorithm_type.values' do

@@ -16,7 +16,7 @@ class OdrCreateApiRequestWorkerTest < Minitest::Test
     OdrCreateApiRequestWorker.drain
 
     assert_equal 0, OdrCreateApiRequestWorker.jobs.size
-    assert @my_request.reload.odr_api_uuid
+    assert @my_request.reload.odr_api_uuid.present?
   end
 
   def test_odr_fetch_api_solution_worker_job_is_present_if_200
@@ -24,7 +24,7 @@ class OdrCreateApiRequestWorkerTest < Minitest::Test
     OdrCreateApiRequestWorker.drain
 
     assert_equal 1, OdrFetchApiSolutionWorker.jobs.size
-    assert @my_request.reload.odr_api_uuid
+    assert @my_request.reload.odr_api_uuid.present?
   end
 
   def test_request_uuid_is_still_nil_if_404

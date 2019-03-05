@@ -6,13 +6,14 @@ FactoryBot.define do
     odr_api_path_length { rand(2..10) }
     odr_api_number_resources { rand(1..10) }
     odr_api_cycles { Faker::Boolean.boolean }
-    # odr_api_uuid {  }
 
     after(:build) do |request|
       build(request.request_type.to_sym, request: request)
     end
   end
 end
+
+private
 
 def create_matrix
   size = rand(4..25)

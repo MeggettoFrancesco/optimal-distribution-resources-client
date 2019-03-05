@@ -19,7 +19,7 @@ class OdrFetchApiSolutionWorkerTest < Minitest::Test
     OdrFetchApiSolutionWorker.drain
 
     assert_equal 0, OdrFetchApiSolutionWorker.jobs.size
-    assert @my_request.reload.solution.present?
+    assert @my_request.reload.solution
   end
 
   def test_solution_is_still_nil_if_still_computing
