@@ -1,24 +1,45 @@
-# README
+Optimal Distribution of Resources - Client
+==========================================
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Introduction
 
-Things you may want to cover:
+Optimal Distribution of Resources (ODR) Client is a sample client application that consumes ODR API.
 
-* Ruby version
+It provides two possible user inputs:
+* Manual input of a graph adjacency matrix
+* Selection of a map area using Open Street Maps
 
-* System dependencies
+# Start Application Locally
 
-* Configuration
+Docker takes care of running every needed dependecy:
 
-* Database creation
+```
+docker-compose up
+```
 
-* Database initialization
+Here is what is included in the docker-compose stack:
+* MySQL
+* Redis
+* Rails server (puma)
+* Sidekiq
 
-* How to run the test suite
+This application runs on domain `localhost` and port `3000`.
 
-* Services (job queues, cache servers, search engines, etc.)
+## Rails: create and seed database
 
-* Deployment instructions
+To create and seed your database, run:
 
-* ...
+```
+docker-compose exec app rails db:reset
+```
+
+## Admin Dashboard
+
+* Visit http://localhost:3000/admin
+  * Username: `admin@example.com`
+  * Password: `password`
+
+## Sidekiq Dashboard
+
+* Visit http://localhost:3000/sidekiq
+  * Username and password are the same as in the previous section: `admin@example.com`, `password`
