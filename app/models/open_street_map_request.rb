@@ -124,7 +124,7 @@ class OpenStreetMapRequest < ApplicationRecord
     coordinates = []
 
     request&.solution&.each do |s|
-      coordinates << [nodes[s - 1][:lat].to_f, nodes[s - 1][:lon].to_f]
+      coordinates << [s, nodes[s - 1][:lat].to_f, nodes[s - 1][:lon].to_f]
     end
 
     coordinates
